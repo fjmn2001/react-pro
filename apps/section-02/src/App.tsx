@@ -1,10 +1,5 @@
-import {
-  Counter,
-  CounterBy,
-  CounterEffect,
-  CounterHook,
-  CounterReducer,
-} from "./bases";
+import { Counter, CounterBy, CounterEffect, CounterHook } from "./bases";
+import { CounterReducer } from "./counter-reducer";
 
 function App() {
   return (
