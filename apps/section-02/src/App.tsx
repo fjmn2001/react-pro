@@ -1,4 +1,4 @@
-import { Counter, CounterBy, CounterEffect } from "./bases";
+import { Counter, CounterBy, CounterEffect, CounterHook } from "./bases";
 
 function App() {
   return (
@@ -6,6 +6,7 @@ function App() {
       <Counter initialValue={15} />
       <CounterBy />
       <CounterEffect />
+      <CounterHook />
     </>
   );
 }
