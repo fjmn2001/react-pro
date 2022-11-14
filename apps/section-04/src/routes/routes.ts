@@ -4,7 +4,7 @@ import { ReactNode } from "react";
 interface Route {
   to: string;
   path: string;
-  Component: () => ReactNode;
+  Component: () => JSX.Element;
   name: string;
 }
 

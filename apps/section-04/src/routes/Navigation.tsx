@@ -1,10 +1,4 @@
-import {
-  BrowserRouter,
-  Navigate,
-  NavLink,
-  Route,
-  Routes,
-} from "react-router-dom";
+import { BrowserRouter, Navigate, NavLink, Route, Routes } from "react-router-dom";
 
 import logo from "./../../public/vite.svg";
 import { routes } from "./routes";
@@ -30,14 +24,10 @@ export const Navigation = () => {
         </nav>
 
         <Routes>
-          {routes.map((route) => (
-            <Route
-              key={route.path}
-              path={route.path}
-              element={route.Component()}
-            />
+          {routes.map(({ path, Component }) => (
+            <Route key={path} path={path} element={<Component />} />
           ))}
-          <Route path={"/*"} element={<Navigate to={"/lazy1"} replace />} />
+          <Route path={"/*"} element={<Navigate to={routes[0].to} replace />} />
         </Routes>
       </div>
     </BrowserRouter>
