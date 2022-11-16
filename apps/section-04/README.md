@@ -1,5 +1,8 @@
 # Temas puntuales de la sección
 
-Esta sección es totalmente opcional, el objetivo es crear una aplicación de React con TypeScript que nos sirva para las próximas secciones.
+En esta sección vamos a llevar nuestro sistema de rutas a otro nivel, el objetivo principal sera:
 
-Aquí no veremos nada nuevo de React, crearemos rutas y dejaremos todo listo para las secciones que vienen.
+* Aplicar <strong>Lazy Load</strong> en cada Componente
+* Aplicar <strong>Lazy Load</strong> Lazy Load por módulo
+
+La idea del módulo es que nos permita cargarlo y todas sus dependencias en conjunto.
