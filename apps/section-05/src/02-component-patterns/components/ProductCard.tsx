@@ -2,9 +2,6 @@ import styles from "../styles/styles.module.css";
 import { useProduct } from "../hooks";
 import { createContext } from "react";
 import { ProductContextProps, ProductCardProps } from "../interfaces";
-import { ProductTitle } from "./ProductTitle";
-import { ProductImage } from "./ProductImage";
-import { ProductButtons } from "./ProductButtons";
 
 export const ProductContext = createContext<ProductContextProps | null>(null);
 const { Provider } = ProductContext;

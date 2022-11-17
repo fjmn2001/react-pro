@@ -24,11 +24,11 @@ export const ShoppingPage = () => {
           flexWrap: "wrap",
         }}
       >
-        {/*<ProductCard product={product}>*/}
-        {/*  <ProductCard.Image />*/}
-        {/*  <ProductCard.Title title={"Hi there!"} />*/}
-        {/*  <ProductCard.Buttons />*/}
-        {/*</ProductCard>*/}
+        <ProductCard product={product}>
+          <ProductCard.Image />
+          <ProductCard.Title title={"Hi there!"} />
+          <ProductCard.Buttons />
+        </ProductCard>
 
         <ProductCard product={product}>
           <ProductImage />
