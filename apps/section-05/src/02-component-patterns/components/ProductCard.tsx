@@ -1,10 +1,11 @@
 import styles from "../styles/styles.module.css";
 import { useProduct } from "../hooks";
-import { FC } from "react";
+import { createContext, ReactElement, useContext } from "react";
 import noImage from "../assets/no-image.jpg";
 
 interface Props {
   product: Product;
+  children?: ReactElement | ReactElement[];
 }
 
 interface Product {
@@ -13,30 +14,86 @@ interface Product {
   img?: string;
 }
 
-export const ProductCard: FC<Props> = ({ product }) => {
-  const { counter, increaseBy } = useProduct();
-  const { img, title } = product;
+interface ProductContextProps {
+  counter: number;
+  increaseBy: (value: number) => void;
+  product: Product;
+}
+
+const ProductContext = createContext<ProductContextProps | null>(null);
+const { Provider } = ProductContext;
+
+export const ProductImage = ({ img = "" }) => {
+  const { product } = useContext(ProductContext)!;
+  let imgToShow: string;
+
+  if (img) {
+    imgToShow = img;
+  } else if (product.img) {
+    imgToShow = product.img;
+  } else {
+    imgToShow = noImage;
+  }
 
   return (
-    <div className={styles.productCard}>
-      <img
-        className={styles.productImg}
-        src={img ? img : noImage}
-        alt={title}
-      />
+    <img className={styles.productImg} src={imgToShow} alt={"Product Image"} />
+  );
+};
 
-      <span className={styles.productDescription}>{title}</span>
-      <div className={styles.buttonsContainer}>
-        <button className={styles.buttonMinus} onClick={() => increaseBy(-1)}>
-          -
-        </button>
+export const ProductTitle = ({ title }: { title?: string }) => {
+  const { product } = useContext(ProductContext)!;
+  let titleToShow: string;
 
-        <div className={styles.countLabel}>{counter}</div>
+  if (title) {
+    titleToShow = title;
+  } else {
+    titleToShow = product.title;
+  }
 
-        <button className={styles.buttonAdd} onClick={() => increaseBy(+1)}>
-          +
-        </button>
-      </div>
+  return <span className={styles.productDescription}>{titleToShow}</span>;
+};
+
+export const ProductButtons = () => {
+  const { increaseBy, counter } = useContext(ProductContext)!;
+
+  return (
+    <div className={styles.buttonsContainer}>
+      <button className={styles.buttonMinus} onClick={() => increaseBy(-1)}>
+        -
+      </button>
+
+      <div className={styles.countLabel}>{counter}</div>
+
+      <button className={styles.buttonAdd} onClick={() => increaseBy(+1)}>
+        +
+      </button>
     </div>
   );
 };
+
+export const ProductCard = ({ product, children }: Props) => {
+  const { counter, increaseBy } = useProduct();
+
+  return (
+    <Provider
+      value={{
+        counter,
+        increaseBy,
+        product,
+      }}
+    >
+      <div className={styles.productCard}>
+        {children}
+        {/*<ProductImage img={img} />*/}
+
+        {/*<ProductTitle title={title} />*/}
+
+        {/*<ProductButtons increaseBy={increaseBy} counter={counter} />*/}
+      </div>
+    </Provider>
+  );
+};
+
+ProductCard.Title = ProductTitle;
+ProductCard.Image = ProductImage;
+ProductCard.Buttons = ProductButtons;
