@@ -6,7 +6,7 @@ interface Props {
   className?: string;
 }
 
-export const ProductButtons: FC<Props> = ({ className }) => {
+export const ProductButtons = ({ className }: Props) => {
   const { increaseBy, counter } = useContext(ProductContext)!;
 
   return (

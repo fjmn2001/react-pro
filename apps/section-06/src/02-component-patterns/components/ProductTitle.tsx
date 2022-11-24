@@ -7,7 +7,7 @@ interface Props {
   className?: string;
 }
 
-export const ProductTitle: FC<Props> = ({ title, className }) => {
+export const ProductTitle = ({ title, className }: Props) => {
   const { product } = useContext(ProductContext)!;
   let titleToShow: string;
 

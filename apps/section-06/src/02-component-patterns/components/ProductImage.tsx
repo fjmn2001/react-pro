@@ -8,7 +8,7 @@ interface Props {
   className?: string;
 }
 
-export const ProductImage: FC<Props> = ({ img = "", className }) => {
+export const ProductImage = ({ img = "", className }: Props) => {
   const { product } = useContext(ProductContext)!;
   let imgToShow: string;
 
