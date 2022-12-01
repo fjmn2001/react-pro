@@ -39,7 +39,18 @@ export const ShoppingPage = () => {
     count: number;
     product: Product;
   }) => {
-    console.log("onProductCountChange", product, count);
+    setShoppingCart((prev) => {
+      if (count === 0) {
+        const { [product.id]: toDelete, ...rest } = prev;
+
+        return rest;
+      }
+
+      return {
+        ...prev,
+        [product.id]: { ...product, count },
+      };
+    });
   };
 
   return (
@@ -85,6 +96,10 @@ export const ShoppingPage = () => {
           <ProductImage className={"custom-image"} />
           <ProductButtons className={"custom-buttons"} />
         </ProductCard>
+      </div>
+
+      <div>
+        <code>{JSON.stringify(shoppingCart, null, 5)}</code>
       </div>
     </div>
   );
