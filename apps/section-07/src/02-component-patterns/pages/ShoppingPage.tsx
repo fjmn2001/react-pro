@@ -6,7 +6,7 @@ import {
 } from "../components";
 
 import "../styles/custom-styles.css";
-import { onChangeArgs, Product } from "../interfaces";
+import { Product } from "../interfaces";
 import { useState } from "react";
 
 const product1 = {
@@ -40,16 +40,29 @@ export const ShoppingPage = () => {
     product: Product;
   }) => {
     setShoppingCart((prev) => {
-      if (count === 0) {
-        const { [product.id]: toDelete, ...rest } = prev;
+      const productInCart: ProductInCart = prev[product.id] || {
+        ...product,
+        count: 0,
+      };
 
-        return rest;
+      if (Math.max(productInCart.count + count, 0) > 0) {
+        productInCart.count += count;
+        return { ...prev, [product.id]: productInCart };
       }
 
-      return {
-        ...prev,
-        [product.id]: { ...product, count },
-      };
+      const { [product.id]: toDelete, ...rest } = prev;
+      return rest;
+
+      // if (count === 0) {
+      //   const { [product.id]: toDelete, ...rest } = prev;
+      //
+      //   return rest;
+      // }
+      //
+      // return {
+      //   ...prev,
+      //   [product.id]: { ...product, count },
+      // };
     });
   };
 
